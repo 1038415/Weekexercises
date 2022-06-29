@@ -533,25 +533,61 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"kuM8f":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+//Pixi canvas importeren
 var _pixiJs = require("pixi.js");
+//Afbeeldingen importeren
 var _fishPng = require("./images/fish.png");
 var _fishPngDefault = parcelHelpers.interopDefault(_fishPng);
 var _bubblePng = require("./images/bubble.png");
 var _bubblePngDefault = parcelHelpers.interopDefault(_bubblePng);
 // create a pixi canvas
 const pixi = new _pixiJs.Application({
-    width: 800,
-    height: 450
+    width: 900,
+    height: 500,
+    backgroundColor: 0xF0F0F0
 });
 document.body.appendChild(pixi.view);
 // preload all our textures
 const loader = new _pixiJs.Loader();
 loader.add("fishTexture", (0, _fishPngDefault.default)).add("bubbleTexture", (0, _bubblePngDefault.default));
 loader.load(()=>loadCompleted());
+let fish;
+let secondFish;
 // after loading is complete, create a fish sprite
 function loadCompleted() {
-    let fish = new _pixiJs.Sprite(loader.resources["fishTexture"].texture);
-    pixi.stage.addChild(fish);
+    console.log("alle plaatjes zijn geladen");
+    for(let i = 1; i <= 4; i++){
+        fish = new _pixiJs.Sprite(loader.resources["fishTexture"].texture);
+        fish.x = 100 * Math.random();
+        fish.y = 400 * Math.random();
+        fish.tint = Math.random() * 0xFFFFFF;
+        pixi.stage.addChild(fish);
+    }
+    secondFish = new _pixiJs.Sprite(loader.resources["fishTexture"].texture);
+    secondFish.x = 400;
+    secondFish.y = 100;
+    pixi.stage.addChild(secondFish);
+    let myfilter = new _pixiJs.filters.ColorMatrixFilter();
+    secondFish.filters = [
+        myfilter
+    ];
+    myfilter.hue(Math.random() * 360, false) // HUE filter
+    ;
+    let basicText = new _pixiJs.Text(`Score: 0 Lives: 3`);
+    basicText.x = 50;
+    basicText.y = 100;
+    pixi.stage.addChild(basicText);
+    let graphics = new _pixiJs.Graphics();
+    graphics.beginFill(0xDE3249);
+    graphics.drawRect(600, 200, 60, 20);
+    graphics.endFill();
+    pixi.stage.addChild(graphics);
+    pixi.ticker.add((delta)=>update(delta));
+}
+function update(delta) {
+    fish.x += 0.05 * delta;
+    secondFish.x += 0.05 * delta;
+    secondFish.y += 0.08 * delta;
 }
 
 },{"pixi.js":"dsYej","./images/fish.png":"85Hm7","./images/bubble.png":"2T1dM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dsYej":[function(require,module,exports) {
