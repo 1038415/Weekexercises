@@ -1,0 +1,30 @@
+{
+  "name": "weekexercises",
+  "version": "1.0.0",
+  "description": "Weekly exercises",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html --dist-dir docs",
+    "build": "parcel build src/index.html --dist-dir docs --public-url ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1038415/Weekexercises.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1038415/Weekexercises/issues"
+  },
+  "homepage": "https://github.com/1038415/Weekexercises#readme",
+  "dependencies": {
+    "pixi.js": "^6.4.2"
+  },
+  "devDependencies": {
+    "parcel": "^2.6.2",
+    "querystring-es3": "^0.2.1",
+    "typescript": "^4.7.4"
+  }
+}
